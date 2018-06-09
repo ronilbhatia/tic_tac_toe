@@ -33,8 +33,10 @@ class Game
     end
     if game_winner
       puts "#{game_winner} wins!"
+      player_one.display(board)
     else
       puts "Cats game!"
+      player_one.display(board)
     end
 
   end

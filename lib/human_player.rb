@@ -20,7 +20,10 @@ class HumanPlayer
 
   def get_move
     puts "Where would you like to place your marker? (row, col)"
-    gets.chomp.split(", ").map(&:to_i).map { |idx| idx - 1 }
+    move = gets.chomp.delete(",!?+-/-. ").split("").map(&:to_i).map { |idx| idx - 1 }
+    get_move if move.any? { |num| num > 2 || num < 0 }
+
+    move
   end
 
 end
