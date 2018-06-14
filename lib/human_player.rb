@@ -1,3 +1,4 @@
+require 'byebug'
 class HumanPlayer
 
   attr_accessor :name, :mark
@@ -8,6 +9,7 @@ class HumanPlayer
   end
 
   def display(board)
+    @board = board
     display_board = board.grid.map do |row|
       row.map { |space| space || " " }
     end
@@ -19,11 +21,21 @@ class HumanPlayer
   end
 
   def get_move
+    # ,debugger
     puts "Where would you like to place your marker? (row, col)"
     move = gets.chomp.delete(",!?+-/-. ").split("").map(&:to_i).map { |idx| idx - 1 }
-    get_move if move.any? { |num| num > 2 || num < 0 }
+    unless valid_move?(move)
+      puts "Invalid move, please try again"
+      move = get_move
+    end
 
     move
+  end
+
+  def valid_move?(move)
+    return false if move.any? { |num| num > 2 || num < 0 } || move.length > 2
+    return false if !@board.empty?(move)
+    true
   end
 
 end

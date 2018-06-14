@@ -28,9 +28,11 @@ class Game
 
   def play
     current_player.display(board)
+
     until board.over?
       play_turn
     end
+
     if game_winner
       puts "#{game_winner} wins!"
       player_one.display(board)

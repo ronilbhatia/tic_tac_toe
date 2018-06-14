@@ -12,20 +12,20 @@ class Board
 
   def [](pos)
     row, col = pos
-    grid[row][col]
+    @grid[row][col]
   end
 
   def []=(pos, mark)
     row, col = pos
-    grid[row][col] = mark
+    @grid[row][col] = mark
   end
 
   def over?
-    grid.flatten.none? { |space| space.nil? } || winner
+    @grid.flatten.none? { |space| space.nil? } || winner
   end
 
   def winner
-    (grid + cols + diagonals).each do |triple|
+    (@grid + cols + diagonals).each do |triple|
       return :X if triple == [:X, :X, :X]
       return :O if triple == [:O, :O, :O]
     end
@@ -35,7 +35,7 @@ class Board
 
   def cols
     cols = [[], [], []]
-    grid.each do |row|
+    @grid.each do |row|
       row.each_with_index do |mark, col_idx|
         cols[col_idx] << mark
       end
@@ -49,7 +49,7 @@ class Board
     up_diag = [[0, 2], [1, 1], [2, 0]]
 
     [down_diag, up_diag].map do |diag|
-      diag.map { |row, col| grid[row][col]}
+      diag.map { |row, col| @grid[row][col] }
     end
   end
 
